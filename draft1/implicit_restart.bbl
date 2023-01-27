@@ -1,0 +1,43 @@
+\begin{thebibliography}{1}
+
+\bibitem{arnoldi51}
+{\sc W.~E. Arnoldi}, {\em The principle of minimized iterations in the solution
+  of the matrix eigenvalue problem}, Quarterly of applied mathematics, 9
+  (1951), pp.~17--29.
+
+\bibitem{GoVa13}
+{\sc G.~H. Golub and C.~F. Van~Loan}, {\em Matrix Computations}, The Johns
+  Hopkins University Press, Baltimore, 4th~ed., 2013.
+
+\bibitem{lanczos50}
+{\sc C.~Lanczos}, {\em An iteration method for the solution of the eigenvalue
+  problem of linear differential and integral operators},  (1950).
+
+\bibitem{arpack98}
+{\sc R.~B. Lehoucq, D.~C. Sorensen, and C.~Yang}, {\em ARPACK users' guide:
+  solution of large-scale eigenvalue problems with implicitly restarted Arnoldi
+  methods}, SIAM, 1998.
+
+\bibitem{rutihauser91}
+{\sc H.~Rutihauser}, {\em Lectures on Numerical Mathematics}, Birkhauser, 1990.
+
+\bibitem{rutishauser58}
+{\sc H.~Rutishauser}, {\em Solution of eigenvalue problems with the
+  lr-transformation}, National Bureau of Standards, Applied Mathematics Series,
+  49 (1958), pp.~47--81.
+
+\bibitem{rutishauser63}
+{\sc H.~Rutishauser and H.~Schwarz}, {\em Thelr transformation method for
+  symmetric matrices}, Numerische Mathematik, 5 (1963), pp.~273--289.
+
+\bibitem{saad82}
+{\sc Y.~Saad}, {\em The lanczos biorthogonalization algorithm and other oblique
+  projection methods for solving large unsymmetric systems}, SIAM Journal on
+  Numerical Analysis, 19 (1982), pp.~485--506.
+
+\bibitem{sorensen92}
+{\sc D.~C. Sorensen}, {\em Implicit application of polynomial filters in
+  ak-step arnoldi method}, Siam journal on matrix analysis and applications, 13
+  (1992), pp.~357--385.
+
+\end{thebibliography}
