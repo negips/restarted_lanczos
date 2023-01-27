@@ -5,9 +5,9 @@
   of the matrix eigenvalue problem}, Quarterly of applied mathematics, 9
   (1951), pp.~17--29.
 
-\bibitem{GoVa13}
-{\sc G.~H. Golub and C.~F. Van~Loan}, {\em Matrix Computations}, The Johns
-  Hopkins University Press, Baltimore, 4th~ed., 2013.
+\bibitem{gutknecht97}
+{\sc M.~H. Gutknecht}, {\em Lanczos-type solvers for nonsymmetric linear
+  systems of equations}, Acta numerica, 6 (1997), pp.~271--397.
 
 \bibitem{lanczos50}
 {\sc C.~Lanczos}, {\em An iteration method for the solution of the eigenvalue

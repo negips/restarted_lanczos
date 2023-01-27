@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.7.4)  26 JAN 2023 17:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.7.4)  27 JAN 2023 20:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -602,88 +602,39 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 42.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-
-LaTeX Warning: Reference `sec:proof' on page 1 undefined on input line 94.
-
-Package hyperref Info: bookmark level for unknown theorem defaults to 0 on inpu
-t line 96.
-[2]
-Package hyperref Info: bookmark level for unknown corollary defaults to 0 on in
-put line 124.
-Package hyperref Info: bookmark level for unknown proof defaults to 0 on input 
-line 129.
-Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 169.
-LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 1
-72.
- (/usr/share/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 172.
- [3]
-Package epstopdf Info: Source file: <lexample_fig1.eps>
-(epstopdf)                    date: 2023-01-20 15:03:49
-(epstopdf)                    size: 312532 bytes
-(epstopdf)             Output file: <lexample_fig1-eps-converted-to.pdf>
-(epstopdf)                    date: 2023-01-20 15:03:49
-(epstopdf)                    size: 30405 bytes
-(epstopdf)             Command: <repstopdf --outfile=lexample_fig1-eps-converte
-d-to.pdf lexample_fig1.eps>
-(epstopdf)             \includegraphics on input line 195.
-Package epstopdf Info: Output file is already uptodate.
-<lexample_fig1-eps-converted-to.pdf, id=119, 160.6pt x 130.4875pt>
-File: lexample_fig1-eps-converted-to.pdf Graphic file (type pdf)
-<use lexample_fig1-eps-converted-to.pdf>
-Package pdftex.def Info: lexample_fig1-eps-converted-to.pdf  used on input line
- 195.
-(pdftex.def)             Requested size: 160.5996pt x 130.48717pt.
- [4 <./lexample_fig1-eps-converted-to.pdf>]
-Package hyperref Info: bookmark level for unknown lemma defaults to 0 on input 
-line 234.
- (./implicit_restart.bbl)
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] (./implicit_restart.bb
+l)
 \tf@thm=\write4
 \openout4 = `implicit_restart.thm'.
 
- [5] (./implicit_restart.aux)
-
-LaTeX Warning: There were undefined references.
-
+ [3]
+(./implicit_restart.aux)
 Package rerunfilecheck Info: File `implicit_restart.out' has not changed.
-(rerunfilecheck)             Checksum: 6909ED4826918E30BC285CCE9866CD14;1318.
+(rerunfilecheck)             Checksum: 9BDE727AEEFD76BB0F0639BDE892259F;349.
  ) 
 Here is how much of TeX's memory you used:
- 13906 strings out of 478994
- 210113 string characters out of 5864752
- 607546 words of memory out of 5000000
- 29583 multiletter control sequences out of 15000+600000
- 412763 words of font info for 62 fonts, out of 8000000 for 9000
+ 13768 strings out of 478994
+ 208484 string characters out of 5864752
+ 604966 words of memory out of 5000000
+ 29483 multiletter control sequences out of 15000+600000
+ 409845 words of font info for 52 fonts, out of 8000000 for 9000
  2715 hyphenation exceptions out of 8191
- 86i,11n,92p,1603b,499s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></usr/share
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
-usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texmf
--dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmmi9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmmib10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.
-pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
-5.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/sha
-re/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmti8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmtt10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.p
-fb>
-Output written on implicit_restart.pdf (5 pages, 293036 bytes).
+ 86i,11n,92p,1603b,421s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/texmf-dist/font
+s/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmmi7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr
+/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></
+usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb>
+Output written on implicit_restart.pdf (3 pages, 179465 bytes).
 PDF statistics:
- 240 PDF objects out of 1000 (max. 8388607)
- 204 compressed objects within 3 object streams
- 49 named destinations out of 1000 (max. 500000)
- 86 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 126 PDF objects out of 1000 (max. 8388607)
+ 106 compressed objects within 2 object streams
+ 24 named destinations out of 1000 (max. 500000)
+ 25 words of extra memory for PDF output out of 10000 (max. 10000000)
 
