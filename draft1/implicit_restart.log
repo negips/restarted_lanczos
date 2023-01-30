@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.7.4)  27 JAN 2023 20:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.7.4)  30 JAN 2023 20:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -602,21 +602,21 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 42.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] (./implicit_restart.bb
-l)
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] (./implicit_restar
+t.bbl)
 \tf@thm=\write4
 \openout4 = `implicit_restart.thm'.
 
- [3]
+ [4]
 (./implicit_restart.aux)
 Package rerunfilecheck Info: File `implicit_restart.out' has not changed.
-(rerunfilecheck)             Checksum: 9BDE727AEEFD76BB0F0639BDE892259F;349.
+(rerunfilecheck)             Checksum: AFC693CEA42A949B5E3366684EDDEE6E;349.
  ) 
 Here is how much of TeX's memory you used:
- 13768 strings out of 478994
- 208484 string characters out of 5864752
- 604966 words of memory out of 5000000
- 29483 multiletter control sequences out of 15000+600000
+ 13806 strings out of 478994
+ 209373 string characters out of 5864752
+ 610124 words of memory out of 5000000
+ 29511 multiletter control sequences out of 15000+600000
  409845 words of font info for 52 fonts, out of 8000000 for 9000
  2715 hyphenation exceptions out of 8191
  86i,11n,92p,1603b,421s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -631,10 +631,10 @@ blic/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></
 usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb>
-Output written on implicit_restart.pdf (3 pages, 179465 bytes).
+Output written on implicit_restart.pdf (4 pages, 186821 bytes).
 PDF statistics:
- 126 PDF objects out of 1000 (max. 8388607)
- 106 compressed objects within 2 object streams
- 24 named destinations out of 1000 (max. 500000)
+ 145 PDF objects out of 1000 (max. 8388607)
+ 124 compressed objects within 2 object streams
+ 34 named destinations out of 1000 (max. 500000)
  25 words of extra memory for PDF output out of 10000 (max. 10000000)
 

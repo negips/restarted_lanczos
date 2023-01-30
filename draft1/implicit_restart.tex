@@ -42,7 +42,7 @@
 
 % REQUIRED
 \begin{abstract}
-The shifted QR iteration is used as a restart procedure for the Arnoldi method for the calculation of a few eigenvalues of a large matrix. We show that the underlying idea can be utilized in much the same manner via the shifted LR iteration to create a restart procedure for the non-symmetric Lanczos algorithm for eigenvalue calcuations. Additionally, we show that the (shifted) LR iteration can be performed implicitly in a manner similar to the Francis' algorithm, resulting in a bulge-chase type procedure which does not require the explicit construction of the full lower and upper triangular matrices. 
+The shifted QR iteration is used as a restart procedure for the Arnoldi method for the calculation of a few dominant eigenvalues of a large matrix. We show that the underlying idea can be utilized in much the same manner via the shifted LR iteration to create a restart procedure for the non-symmetric Lanczos algorithm for eigenvalue calcuations. Additionally, we show that the (shifted) LR iteration can be performed implicitly in a manner similar to the Francis' algorithm, resulting in a bulge-chase type procedure which does not require the explicit construction of the full lower and upper triangular matrices. 
 \end{abstract}
 
 % REQUIRED
@@ -70,7 +70,6 @@ Lanczos first introduced his algorithm in \cite{lanczos50} as a method for tridi
 	\beta_{j+1}w_{j+1} = A^{H}w_{j} - \alpha_{j}w_{j} - \delta_{j}w_{j-1} \label{eqn:recurrence_left}
 \end{eqnarray}
 \end{subequations}
-
 which, for a Krylov space of size $m$, can be written in matrix form as 
 \begin{subequations}
 	\begin{eqnarray}
@@ -79,9 +78,9 @@ which, for a Krylov space of size $m$, can be written in matrix form as
 		W_{m}^{H}V_{m}	= I_{m} \label{eqn:biorthogonality}
 	\end{eqnarray}
 \end{subequations}
-where $I_{m}$ represents the Identity matrix of size $m$, $T_{m}$ is a tri-diagonal matrix of size $m$ and, $T_{m}^{H}$ is the Hermitian conjugate of $T_{m}$. If either $v_{m+1}$ or $w_{m+1}$ vanishes it represents the convergence of the left or the right Krylov subspaces to an invariant subspace of dimension $m$. A more serious breakdown occurs if $w_{m+1}^{H}v_{m+1} = 0$ with both $v_{m+1}\ne0$ and $w_{m+1}\ne0$ however, we do not address that issue here. We refer the reader to \cite{gutknecht97} for a comprehensive overview on Lanczos type solvers and the related issues of breakdown. 
+where $I_{m}$ represents the Identity matrix of size $m$, $T_{m}$ is a tri-diagonal matrix of size $m$ and, $T_{m}^{H}$ is the Hermitian conjugate of $T_{m}$. If either $v_{m+1}$ or $w_{m+1}$ vanishes it represents the convergence of the right or the left Krylov subspaces to an invariant subspace of dimension $m$. A more serious breakdown occurs if $w_{m+1}^{H}v_{m+1} = 0$ with both $v_{m+1}\ne0$ and $w_{m+1}\ne0$ however, we do not address that issue here. We refer the reader to \cite{gutknecht97} for a comprehensive overview on Lanczos type solvers and the related issues of breakdown. 
 
-As Sorensen points out for the Arnoldi method\cite{sorensen92}, if one is interested in an invariant subspace of dimension $m$, the starting vector of Krylov subspace  must not contain components of  the generator of a cyclic subspace of dimension greater than $m$. This applies equally for the left and right Krylov subspaces generated through the Lanczos recurrence relations. Hence a non-vanishing $v_{m+1}$ (respectively $w_{m+1}$) implies that $v_{1}$ (respectively $w_{1}$) contains components of an invariant subspace of dimension greater than $m$. The idea behind restarts then is to discard the components of the starting vector $v_{1}$ (and $w_{1}$) along the unwanted dimensions, such that each restart process moves the Krylov space(s) closer to being invariant. For the Arnoldi method Sorensen \cite{sorensen92} proposed to achieve this via polynomial filtering, \textit{i.e.} replacing
+As Sorensen points out for the Arnoldi method \cite{sorensen92}, if one is interested in an invariant subspace of dimension $m$, the starting vector of Krylov subspace  must not contain components of  the generator of a cyclic subspace of dimension greater than $m$. This applies equally for the right and left Krylov subspaces generated through the Lanczos recurrence relations. Hence a non-vanishing $v_{m+1}$ (respectively $w_{m+1}$) implies that $v_{1}$ (respectively $w_{1}$) contains components of an invariant subspace of dimension greater than $m$. The idea behind restarts then is to discard the components of the starting vector $v_{1}$ (and $w_{1}$) along the unwanted dimensions, such that each restart process moves the Krylov space(s) closer to being invariant. For the Arnoldi method Sorensen \cite{sorensen92} proposed to achieve this via polynomial filtering, \textit{i.e.} replacing
 %$v_{1} \leftarrow \psi(A)v_{1}$, where $\psi$ is a polynomial, conveniently written in the form $\psi(\lambda) = (1/\tau)\Pi_{j=1}^{p}(\lambda - \mu_{j})$ 
 \begin{subequations}
 	\begin{eqnarray}
@@ -93,12 +92,74 @@ Obviously $\psi(\lambda)$ is the filtering polynomial, $\tau$ is a normalization
 The node $\mu_{j}$ is referred to as a shift since the application of the polynomial filtering relies on the shifted QR algorithm, where $\mu_{j}$ is used as the shift. As shown below for the case of a single shift, an analogous procedure can be followed using a shifted LR algorithm which achieves the same effect of applying a polynomial filter to the starting vector $v_{1}$. Starting with the Lanczos relation for the right subspace \ref{eqn:lanczos_right}, and adding and subtracting $\mu V_{m}$ we obtain
 \begin{subequations}
 	\begin{eqnarray}
-		(A - \mu I) V_{m} - V_{m}(T_{m} - \mu I_{m}) = v_{m+1}e_{m}^{T} \label{alg:shifted_lr_1}\\
-		(A - \mu I) V_{m} - V_{m}(L_{m}R_{m}) = v_{m+1}e_{m}^{T} \label{alg:shifted_lr_2}\\
-		(A - \mu I) V_{m}L_{m} - V_{m}(L_{m}R_{m})L_{M} = v_{m+1}e_{m}^{T}L_{m} \label{alg:shifted_lr_3}\\
-		A(V_{m}L_{m}) - (V_{m}L_{m})(R_{m}L_{m} + \mu I_{m})= v_{m+1}e_{m}^{T}L_{m}	\label{alg:shifted_lr_4}
+		(A - \mu I) V_{m} - V_{m}(T_{m} - \mu I) &=& v_{m+1}e_{m}^{T} \label{alg:shifted_lr_right_1}\\
+		%
+		(A - \mu I) V_{m} - V_{m}(L_{1}R_{1}) &=& v_{m+1}e_{m}^{T} \label{alg:shifted_lr_right_2}\\
+		%
+		(A - \mu I) V_{m}L_{1} - V_{m}(L_{1}R_{1})L_{1} &=& v_{m+1}e_{m}^{T}L_{1} \label{alg:shifted_lr_right_3}\\
+		%
+		A(V_{m}L_{1}) - (V_{m}L_{1})(R_{1}L_{1} + \mu I) &=& v_{m+1}e_{m}^{T}L_{1}	\label{alg:shifted_lr_right_4} \\
+		%
+		AV'_{m} - V'_{m}T'_{m} &=& v_{m+1}e_{m}^{T}L_{1}	\label{alg:shifted_lr_right_5} .
 	\end{eqnarray}	
 \end{subequations}
+Here we have set $V'_{m} = V_{m}L_{1}$ and $T'_{m} = (R_{1}L_{1} + \mu I)$. The matrices $L_{1}, R_{1}$ are the lower and upper triangular matrices obtained from the LU decomposition of $(T_{m} - \mu I)$. The matrix $L_{1}$ can be required to be unit triangular (all entries on the main diagonal are ones), in which case the LU decomposition is unique. Furthermore, $L_{1}$ for a tridiagonal matrix only consists of one sub-diagonal (in addition to the main diagonal). One can easily recognize that the new reduced matrix $T'_{m}$ is a result of one step of the shifted LR iteration. Hence $T'_{m}$ retains the tridiagonal structure of the $T_{m}$ \cite{rutishauser58,rutihauser91}. The relationship between generating vectors of the two spaces $V_{m}$ and $V'_{m}$ can be obtained by multiplying \ref{alg:shifted_lr_right_2} by $e_{1}$, \textit{i.e.}
+\begin{eqnarray}
+		(A - \mu I) V_{m}e_{1} - (V'_{m})R_{1}e_{1} &=& v_{m+1}e_{m}^{T}e_{1} \nonumber \\
+		(A - \mu I) v_{1}  &=& v'_{1}\rho_{11} \label{eqn:generating_vectors},
+\end{eqnarray}
+where $\rho_{11}=e^{T}_{1}R_{1}e_{1}$. This clearly shows the filtering operation done on the original vector $v_{1}$ to generate the new vector $v'_{1}$. 
+
+Since the Lanczos method creates a biorthogonal basis, one must simultaneously transform the left basis $W_{m}$ to maintain the biorthogonality property. It is easy to see that the necessary transform to maintain biorthogonality is $W'_{m} = W_{m}L_{1}^{-H}$, since,
+\begin{eqnarray}
+	W'^{H}V'_{m} = (W_{m}L_{1}^{-H})^{H}(V_{m}L_{1}) = L_{1}^{-1}(W^{H}_{m}V_{m})L_{1} = I \nonumber
+\end{eqnarray}
+We can obtain the modified Lanczos relation for the left Krylov space as
+\begin{eqnarray}
+	A^{H}W_{m}	- W_{m}(R^{H}_{1}L^{H}_{1} + \bar{\mu}I) &=& w_{m+1}e_{m}^{T} \label{alg:transform_left_1} \\
+	%
+	A^{H}(W_{m}L_{1}^{-H})	- W_{m}(L_{1}^{-H}L_{1})(R^{H}_{1}L^{H}_{1} + \bar{\mu}I)L_{1}^{-H} &=& w_{m+1}e_{m}^{T}L_{1}^{-H} \label{alg:transform_left_2} \\
+	%
+	A^{H}(W_{m}L_{1}^{-H})	- (W_{m}L_{1}^{-H})(L^{H}_{1}R^{H}_{1} + \bar{\mu}I) &=& w_{m+1}e_{m}^{T}L_{1}^{-H} \label{alg:transform_left_3} \\
+	%
+	A^{H}W'_{m}	- W'_{m}(T'_{m})^{H} &=& w_{m+1}e_{m}^{T}L_{1}^{-H} \label{alg:transform_left_4}.
+\end{eqnarray}
+Conveniently the structure of the Lanczos iteration for the left Krylov space is also preserved. Noting that $L_{1}^{-H}$ is upper triangular, one can again expose the relationship between the generating vectors of the two left Krylov spaces as
+\begin{eqnarray}
+	W'e_{1} = (W_{m}L_{1}^{-H})e_{1} \nonumber \\
+	w'_{1} = w_{1}\sigma_{11} \nonumber
+\end{eqnarray}
+where $\sigma_{11}=e_{1}^{T}(L_{1}^{-H})e_{1}$. Clearly $w'_{1}$ is simply a scalar multiple of the old vector $w_{1}$ and no filtering of the generating vector has occurred. In order to ensure that we filter the left Krylov space as well, we perform one step of the shifted LR iteration with the conjugated shift $\bar{\mu}$ on the reduced matrix $(T'_{m})^{H}$ obtained in equation~\ref{alg:transform_left_4}. The right Krylov space is modified again to maintain orthogonality.
+
+\begin{subequations}
+	\begin{eqnarray}
+		(A - \mu I)^{H} W'_{m} - W'_{m}(T'_{m} - \mu I)^{H} &=& w_{m+1}e_{m}^{T}L_{1}^{-H} \label{alg:shifted_lr_left_1}\\
+		%
+		(A - \mu I)^{H} W'_{m} - W'_{m}(L_{2}R_{2}) &=& w_{m+1}e_{m}^{T}L_{1}^{-H} \label{alg:shifted_lr_left_2}\\
+		%
+		(A - \mu I)^{H} W'_{m}L_{2} - W'_{m}(L_{2}R_{2})L_{2} &=& v_{m+1}e_{m}^{T}L_{1}^{-H}L_{2} \label{alg:shifted_lr_left_3} \\
+		%
+		A(W'_{m}L_{2}) - (W'_{m}L_{2})(R_{2}L_{2} + \bar{\mu}I) &=& v_{m+1}e_{m}^{T}L_{1}^{-H}L_{2}	\label{alg:shifted_lr_left_4} \\
+		%
+		AW''_{m} - W''_{m}(T''_{m})^{H} &=& w_{m+1}e_{m}^{T}L_{1}^{-H}L_{2}	\label{alg:shifted_lr_left_5} .
+	\end{eqnarray}	
+\end{subequations}
+One may again obtain the relation between the starting vectors as 
+\begin{eqnarray}
+	(A^{H} - \bar{\mu}I)w'_{1} = w''_{1}(e_{1}^{T}R_{2}e_{1}).
+\end{eqnarray}
+Obviously the appropriate transform of the right subspace to maintain orthogonality is $V''_{m} = V'_{m}L_{2}^{-H} = V_{m}L_{1}L_{2}^{-H}$. Again, noting that $L_{2}^{-H}$ is upper triangular which implies that the new $v''_{1}$ is simply the scalar multiple of $v'_{1}$. One can write the modified Lanczos relation as
+\begin{eqnarray}
+	AV''_{m} - V''_{m}T''_{m} &=& v_{m+1}e_{m}^{T}L_{1}L_{2}^{-H} \label{alg:transform_right_1}.
+\end{eqnarray}
+
+The obove process can be repeated for $p$ unwanted shifts such that for a Krylov space size of $m=k+p$ we have two modified Lanczos relations
+
+\begin{eqnarray}
+		AV''_{k+p} - V''_{k+p}T''_{k+p} &=& v_{k+p+1}e_{k+p}^{T}L_{1}L_{2}^{-H} \label{eqn:modified_lanczos_right_1} \\
+		%
+		AW''_{k+p} - W''_{k+p}(T''_{k+p})^{H} &=& w_{k+p+1}e_{k+p}^{T}L_{1}^{-H}L_{2}	\label{eqn:modified_lanczos_left_1}.		
+\end{eqnarray}
 
 
 % The outline is not required, but we show an example here.
