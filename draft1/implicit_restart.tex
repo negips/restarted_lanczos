@@ -18,6 +18,10 @@
 
 \newcommand{\Citation}{(\textbf{Citation}) }
 
+\newcommand{\refeqn}[1]{equation~(\ref{#1})}
+
+\newcommand{\bracketref}[1]{~(\ref{#1})}
+
 % The next statement enables references to information in the
 % supplement. See the xr-hyperref package for details.
 
@@ -63,13 +67,13 @@ One would like to extend this procedure to the case of the non-symmetric Lanczos
 The rest of the paper is organized as follows. In the next section we start with the introduction of the non-symmetric Lanczos iteration and then develop the restart procedure. We also show that the LR algorithm can be implemented as a bulge-chase method, similar to the Francis' algorithm. In section 3 we apply the restart process to the Grcar matrix, and make some concluding remarks in section 4.
 
 \section{Non-symmetric Lanczos}
-Lanczos first introduced his algorithm in \cite{lanczos50} as a method for tridiagonalizing a matrix, but also realized that the method could be used iteratively to find eigenvalues. For an arbitry matrix $A$, the method generates a pair of Krylov subspaces $\{v_{1},\ldots,v_{j}\}$ and $\{w_{1},\ldots,w_{j}\}$, through repeated action of $A$ and $A^{H}$ respectively. We refer to these as the right and left Krylov spaces respectively and they satisfy the biorthogonality relation $w_{i}^{H}v_{j}=\delta_{ij}$. The two subspaces are generated through the following recurrence relations:
-\begin{subequations}
-\begin{eqnarray}
-	\delta_{j+1}v_{j+1} = Av_{j} - \alpha_{j}v_{j} - \beta_{j}v_{j-1} \label{eqn:recurrence_right}\\
-	\beta_{j+1}w_{j+1} = A^{H}w_{j} - \alpha_{j}w_{j} - \delta_{j}w_{j-1} \label{eqn:recurrence_left}
-\end{eqnarray}
-\end{subequations}
+Lanczos first introduced his algorithm in \cite{lanczos50} as a method for tridiagonalizing a matrix, but also realized that the method could be used iteratively to find eigenvalues. For an arbitry matrix $A$, the method generates a pair of Krylov subspaces $\{v_{1},\ldots,v_{j}\}$ and $\{w_{1},\ldots,w_{j}\}$, through repeated action of $A$ and $A^{H}$ respectively. We refer to these as the right and left Krylov spaces respectively and they satisfy the biorthogonality relation $w_{i}^{H}v_{j}=\delta_{ij}$. The two subspaces are generated through a three term recurrence relation
+%\begin{subequations}
+%\begin{eqnarray}
+%	\delta_{j+1}v_{j+1} = Av_{j} - \alpha_{j}v_{j} - \beta_{j}v_{j-1} \label{eqn:recurrence_right}\\
+%	\beta_{j+1}w_{j+1} = A^{H}w_{j} - \alpha_{j}w_{j} - \delta_{j}w_{j-1} \label{eqn:recurrence_left}
+%\end{eqnarray}
+%\end{subequations}
 which, for a Krylov space of size $m$, can be written in matrix form as 
 \begin{subequations}
 	\begin{eqnarray}
@@ -106,7 +110,7 @@ The node $\mu_{j}$ is referred to as a shift since the application of the polyno
 Here we have set $V'_{m} = V_{m}L_{1}$ and $T'_{m} = (R_{1}L_{1} + \mu I)$. The matrices $L_{1}, R_{1}$ are the lower and upper triangular matrices obtained from the LU decomposition of $(T_{m} - \mu I)$. The matrix $L_{1}$ can be required to be unit triangular (all entries on the main diagonal are ones), in which case the LU decomposition is unique. Furthermore, $L_{1}$ for a tridiagonal matrix only consists of one sub-diagonal (in addition to the main diagonal). One can easily recognize that the new reduced matrix $T'_{m}$ is a result of one step of the shifted LR iteration. Hence $T'_{m}$ retains the tridiagonal structure of the $T_{m}$ \cite{rutishauser58,rutihauser91}. The relationship between generating vectors of the two spaces $V_{m}$ and $V'_{m}$ can be obtained by multiplying \ref{alg:shifted_lr_right_2} by $e_{1}$, \textit{i.e.}
 \begin{eqnarray}
 		(A - \mu I) V_{m}e_{1} - (V'_{m})R_{1}e_{1} &=& v_{m+1}e_{m}^{T}e_{1} \nonumber \\
-		(A - \mu I) v_{1}  &=& v'_{1}\rho_{11} \label{eqn:generating_vectors},
+		\implies (A - \mu I) v_{1}  &=& v'_{1}\rho_{11} \nonumber,
 \end{eqnarray}
 where $\rho_{11}=e^{T}_{1}R_{1}e_{1}$. This clearly shows the filtering operation done on the original vector $v_{1}$ to generate the new vector $v'_{1}$. 
 
@@ -126,10 +130,10 @@ We can obtain the modified Lanczos relation for the left Krylov space as
 \end{eqnarray}
 Conveniently the structure of the Lanczos iteration for the left Krylov space is also preserved. Noting that $L_{1}^{-H}$ is upper triangular, one can again expose the relationship between the generating vectors of the two left Krylov spaces as
 \begin{eqnarray}
-	W'e_{1} = (W_{m}L_{1}^{-H})e_{1} \nonumber \\
-	w'_{1} = w_{1}\sigma_{11} \nonumber
+	W'e_{1} &=& (W_{m}L_{1}^{-H})e_{1} \nonumber \\
+	\implies w'_{1} &=& w_{1}(e_{1}^{T}L_{1}^{-H}e_{1}) \nonumber.
 \end{eqnarray}
-where $\sigma_{11}=e_{1}^{T}(L_{1}^{-H})e_{1}$. Clearly $w'_{1}$ is simply a scalar multiple of the old vector $w_{1}$ and no filtering of the generating vector has occurred. In order to ensure that we filter the left Krylov space as well, we perform one step of the shifted LR iteration with the conjugated shift $\bar{\mu}$ on the reduced matrix $(T'_{m})^{H}$ obtained in equation~\ref{alg:transform_left_4}. The right Krylov space is modified again to maintain orthogonality.
+Clearly $w'_{1}$ is simply a scalar multiple of the old vector $w_{1}$ and no filtering of the generating vector has occurred. In order to ensure that we filter the left Krylov space as well, we perform one step of the shifted LR iteration with the conjugated shift $\bar{\mu}$ on the reduced matrix $(T'_{m})^{H}$ obtained in equation~\ref{alg:transform_left_4}. The right Krylov space is modified again to maintain orthogonality.
 
 \begin{subequations}
 	\begin{eqnarray}
@@ -148,19 +152,57 @@ One may again obtain the relation between the starting vectors as
 \begin{eqnarray}
 	(A^{H} - \bar{\mu}I)w'_{1} = w''_{1}(e_{1}^{T}R_{2}e_{1}).
 \end{eqnarray}
-Obviously the appropriate transform of the right subspace to maintain orthogonality is $V''_{m} = V'_{m}L_{2}^{-H} = V_{m}L_{1}L_{2}^{-H}$. Again, noting that $L_{2}^{-H}$ is upper triangular which implies that the new $v''_{1}$ is simply the scalar multiple of $v'_{1}$. One can write the modified Lanczos relation as
+Obviously the appropriate transform of the right subspace to maintain orthogonality is $V''_{m} = V'_{m}L_{2}^{-H} = V_{m}L_{1}L_{2}^{-H}$. Again, noting that $L_{2}^{-H}$ is upper triangular implies that the new $v''_{1}$ is simply the scalar multiple of $v'_{1}$ and no additional filtering occurs for $v_{1}$ in this step. One can write the modified Lanczos relation as
 \begin{eqnarray}
 	AV''_{m} - V''_{m}T''_{m} &=& v_{m+1}e_{m}^{T}L_{1}L_{2}^{-H} \label{alg:transform_right_1}.
 \end{eqnarray}
 
-The obove process can be repeated for $p$ unwanted shifts such that for a Krylov space size of $m=k+p$ we have two modified Lanczos relations
+The above process can be repeated for $p$ unwanted shifts. We Denote by $L_{1}^{p} = L_{11}L_{12}\ldots L_{1p} $ as the product of the lower triangular matrices generated due to $p$ shifted-LR steps for the right Krylov space $V_{m}$, and by $L^{p}_{2}=L_{21}L_{22}\ldots L_{2p}$ as the product of the lower triangular matrices due to the $p$ shifted-LR iterations for the left Krylov space. Then for a Krylov space size of $m=k+p$ we have two modified Lanczos relations
+\begin{subequations}
+\begin{eqnarray}
+		AV''_{k+p} - V''_{k+p}T''_{k+p} &=& v_{k+p+1}e_{k+p}^{T}L_{1}^{p}(L_{2}^{p})^{-H} \label{eqn:modified_lanczos_right_1} \\
+		%
+		A^{H}W''_{k+p} - W''_{k+p}(T''_{k+p})^{H} &=& w_{k+p+1}e_{k+p}^{T}(L_{1}^{p})^{-H}L_{2}^{p}	\label{eqn:modified_lanczos_left_1}.		
+\end{eqnarray}
+\end{subequations}
+
+We may take a closer look at the structure of the residual matrices on the right hand side of \refeqn{eqn:modified_lanczos_right_1}. $L_{1}^{p}$ is a product of $p$ matrices that are lower triangular with just one subdiagonal. $L_{1}^{p}$ then is lower triangular with $p$ non-zero subdiagonals. $(L_{2}^{p})^{-H}$ is upper triangular and the product $L_{1}^{p}(L_{2}^{p})^{-H}$ therefore has $p$ non-zero subdiagonals. Left multiplication by $e_{k+p}^{T}$ therefore has the form
+\begin{eqnarray}
+	e_{k+p}^{T}L_{1}^{p}(L_{2}^{p})^{-H} = (\underbrace{0,0\ldots,\theta_{k+p}}_{k},\underbrace{b_{1}^{T}}_{p} ) \nonumber
+\end{eqnarray}
+where, $\theta_{k+p} = e_{k+p}^{T}(L_{1}^{p}(L_{2}^{p})^{-H})e_{k}$. Therefore matrix on the right hand side of \eqref{eqn:modified_lanczos_left_1} has zeros in the first $k-1$ columns and the $k^{th}$ column is simply $\theta_{k+p}v_{k+p+1}$. The remaining columns are non-zero in general. 
+
+A very similar structure is obtained for the residual matrix in the right hand side of \refeqn{eqn:modified_lanczos_left_1} with zeros in the first $k-1$ columns and the $k^{th}$ column being equal to $\phi_{k+p}w_{k+p+1}$, with $\phi_{k+p} = e_{k+p}^{T}((L_{1}^{p})^{-H}L_{2}^{p})e_{k}$ 
+
+Partitioning the matrices such that
+\begin{subequations}
+	\begin{eqnarray}
+			V''_{k+p} = (V''_{k},V''_{p}), & \hspace{10pt} T''_{k+p} = \begin{pmatrix}
+				T''_{k} 	& \delta_{k+1}e_{k}e_{1}^{T} \\
+				\beta_{k+1}e_{1}e_{k}^T	&	T''_{p}
+			\end{pmatrix}, \\
+		%
+			W''_{k+p} = (W''_{k},W''_{p}), & \hspace{10pt} (T''_{k+p})^{H} = \begin{pmatrix}
+			(T''_{k})^{H} 	& \bar{\beta}_{k+1}e_{k}e_{1}^{T} \\
+			\bar{\delta}_{k+1}e_{1}e_{k}^T	&	(T''_{p})^{H}
+		\end{pmatrix},
+	\end{eqnarray}
+\end{subequations}
+with the length of the $e_{i}$ vectors understood to be such that the resulting matrices are consistent. We can write the modified Lanczos relation of \eqref{eqn:modified_lanczos_left_1} as 
 
 \begin{eqnarray}
-		AV''_{k+p} - V''_{k+p}T''_{k+p} &=& v_{k+p+1}e_{k+p}^{T}L_{1}L_{2}^{-H} \label{eqn:modified_lanczos_right_1} \\
-		%
-		AW''_{k+p} - W''_{k+p}(T''_{k+p})^{H} &=& w_{k+p+1}e_{k+p}^{T}L_{1}^{-H}L_{2}	\label{eqn:modified_lanczos_left_1}.		
+	A(V''_{k},V''_{p}) = (V''_{k},V''_{p}) \begin{pmatrix}
+		T''_{k} 	& \delta_{k+1}e_{k}e_{1}^{T} \\
+		\beta_{k+1}e_{1}e_{k}^T	&	T''_{p}
+	\end{pmatrix} + \begin{pmatrix}
+	\tilde{\beta}_{k+p}v_{k+p+1}e_{k}^{T}, M_{v}
+\end{pmatrix} \label{eqn:modified_lanczos_left_2}. 
 \end{eqnarray}
+Finally, equating the individual columns on both sides and discarding columns $k+1,\ldots,k+p$ we are left with a new Lanczos relation with a Krylov space of order $k$. The same procedure is followed 
 
+\begin{eqnarray}
+		AV''_{k} - V''_{k}T''_{k} &=& v''_{k+1}e_{k}^{T} \label{eqn:restarted_lanczos_right_1}
+\end{eqnarray}
 
 % The outline is not required, but we show an example here.
 
