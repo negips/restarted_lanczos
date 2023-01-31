@@ -188,21 +188,39 @@ Partitioning the matrices such that
 		\end{pmatrix},
 	\end{eqnarray}
 \end{subequations}
-with the length of the $e_{i}$ vectors understood to be such that the resulting matrices are consistent. We can write the modified Lanczos relation of \eqref{eqn:modified_lanczos_left_1} as 
+with the length of the $e_{i}$ vectors understood to be such that the resulting matrices are consistent. We can write the modified Lanczos relations of \eqref{eqn:modified_lanczos_left_1} and \eqref{eqn:modified_lanczos_right_1} as
 
 \begin{eqnarray}
 	A(V''_{k},V''_{p}) = (V''_{k},V''_{p}) \begin{pmatrix}
 		T''_{k} 	& \delta_{k+1}e_{k}e_{1}^{T} \\
 		\beta_{k+1}e_{1}e_{k}^T	&	T''_{p}
 	\end{pmatrix} + \begin{pmatrix}
-	\tilde{\beta}_{k+p}v_{k+p+1}e_{k}^{T}, M_{v}
-\end{pmatrix} \label{eqn:modified_lanczos_left_2}. 
+	\theta_{k+p}v_{k+p+1}e_{k}^{T}, M_{v}
+\end{pmatrix} \label{eqn:modified_lanczos_left_2}, \nonumber \\
+%
+	A^{H}(W''_{k},W''_{p}) = (W''_{k},W''_{p}) \begin{pmatrix}
+		(T''_{k})^{H} 	& \bar{\beta}_{k+1}e_{k}e_{1}^{T} \\
+		\bar{\delta}_{k+1}e_{1}e_{k}^T	&	(T''_{p})^{H}
+	\end{pmatrix} + \begin{pmatrix}
+	\phi_{k+p}w_{k+p+1}e_{k}^{T}, M_{w}
+\end{pmatrix} \label{eqn:modified_lanczos_right_2}, \nonumber
 \end{eqnarray}
-Finally, equating the individual columns on both sides and discarding columns $k+1,\ldots,k+p$ we are left with a new Lanczos relation with a Krylov space of order $k$. The same procedure is followed 
+Finally, equating the individual columns on both sides and discarding columns $k+1,\ldots,k+p$ we are left with the new Krylov spaces of order $k$ and the Lanczos relations
+\begin{subequations}
+	\begin{eqnarray}
+			AV''_{k} - V''_{k}T''_{k} &=& v''_{k+1}e_{k}^{T} \label{eqn:restarted_lanczos_right_1}, \\
+			A^{H}W''_{k} - W''_{k}(T''_{k})^{H} &=& w''_{k+1}e_{k}^{T} \label{eqn:restarted_lanczos_left_1}, \\
+			(W''_{k})^{H}V_{k} &=& I \label{eqn:orthogonality_new}.
+	\end{eqnarray}
+\end{subequations}
+The new residual vectors are defined as
+\begin{subequations}
+	\begin{eqnarray}
+		v''_{k+1}	&=&	\beta_{k+1}V''_{p}e_{1} + \theta_{k+p}v_{k+p+1} \label{eqn:residual_new_right} \\
+		w''_{k+1}	&=&	\bar{\delta}_{k+1}W''_{p}e_{1} + \phi_{k+p}w_{k+p+1} \label{eqn:residual_new_left} 		
+	\end{eqnarray}
+\end{subequations}
 
-\begin{eqnarray}
-		AV''_{k} - V''_{k}T''_{k} &=& v''_{k+1}e_{k}^{T} \label{eqn:restarted_lanczos_right_1}
-\end{eqnarray}
 
 % The outline is not required, but we show an example here.
 

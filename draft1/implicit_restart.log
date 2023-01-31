@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.7.4)  31 JAN 2023 16:46
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.7.4)  31 JAN 2023 17:05
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -610,13 +610,13 @@ start.bbl)
  [5]
 (./implicit_restart.aux)
 Package rerunfilecheck Info: File `implicit_restart.out' has not changed.
-(rerunfilecheck)             Checksum: 3989A4FB2919F994BA93414D3CC4C66D;349.
+(rerunfilecheck)             Checksum: 397A84A9E22FC74CFDAD22DFEBA88537;349.
  ) 
 Here is how much of TeX's memory you used:
- 13811 strings out of 478994
- 209420 string characters out of 5864752
- 613062 words of memory out of 5000000
- 29511 multiletter control sequences out of 15000+600000
+ 13824 strings out of 478994
+ 209738 string characters out of 5864752
+ 615507 words of memory out of 5000000
+ 29521 multiletter control sequences out of 15000+600000
  409845 words of font info for 52 fonts, out of 8000000 for 9000
  2715 hyphenation exceptions out of 8191
  86i,13n,92p,1603b,421s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -632,10 +632,10 @@ cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb><
 /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/t
 ype1/public/amsfonts/cm/cmti8.pfb>
-Output written on implicit_restart.pdf (5 pages, 200246 bytes).
+Output written on implicit_restart.pdf (5 pages, 200905 bytes).
 PDF statistics:
- 164 PDF objects out of 1000 (max. 8388607)
- 141 compressed objects within 2 object streams
- 39 named destinations out of 1000 (max. 500000)
+ 168 PDF objects out of 1000 (max. 8388607)
+ 145 compressed objects within 2 object streams
+ 42 named destinations out of 1000 (max. 500000)
  25 words of extra memory for PDF output out of 10000 (max. 10000000)
 
