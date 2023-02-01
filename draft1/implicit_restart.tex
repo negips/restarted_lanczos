@@ -22,6 +22,11 @@
 
 \newcommand{\bracketref}[1]{~(\ref{#1})}
 
+%\floatname{algorithm}{Procedure}
+%\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+%\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+
 % The next statement enables references to information in the
 % supplement. See the xr-hyperref package for details.
 
@@ -62,7 +67,7 @@ LR algorithm, unsymmetric Lanczos, implicit restart
 \section{Introduction}
 The Arnoldi iteration \cite{arnoldi51} is a popular Krylov space method for calculating a few eigenvalues of a large matrix. The method relies on the generation of a sequence of Krylov vectors which determine the subspace within which approximations of the eigenvalue-eigenvector pairs are obtained. Depending on the accuracy and number of eigenpair approximations needed, the Krylov space size can become exceedingly large so that  the quality of the results may be limited by the available memory. Sorensen \cite{sorensen92} introduced an elegant procedure for restarting the Arnoldi factorization based on polynomial filters, which are applied through the implicitly shifted QR iterations on the reduced Hessenberg matrix obtained through the Arnoldi method. In particular, the use of exact shifts was shown to be successful in the convergence process of the eigenspace\cite{sorensen92} of the specified eigenvalues. The method has subsequently found widespread application through the ARPACK library \cite{arpack98}. The use of QR iterations ensures that the reduced matrix preserves its Hessenberg structure through the transforms that make up the restart process. If the underlying matrix is symmetric, the Arnoldi iteration reduces to the Lanczos algorithm and, the Hessenberg matrix reduces to a symmetric tridiagonal matrix. The QR iteration preserves the symmetric tridiagonal structure as well and, as pointed out by Sorensen \cite{sorensen92}, the implicit restart process applies equally well for the Lanczos method for symmetric matrices. 
 
-One would like to extend this procedure to the case of the non-symmetric Lanczos method. However, the reduced matrix that one obtains is a non-symmetric tridiagonal matrix, with the tridiagonal structure being the result of the recurrence relations of the Lanczos algorithm \cite{saad82}. Since the QR iterations do not preserve the banded structure of non-symmetric matrices, a straightforward application of the restart procedure propounded by Sorensen will lead to a loss of this tridiagonal structure of the reduced matrix (the Hessenberg structure will still be preserved).  This loss of structure can be circumvented if one looks to the predecessor of the QR algorithm namely, the LR algorithm proposed by Rutihauser \cite{rutishauser58,rutishauser63,rutihauser91}, which has the attractive property of preserving the band structure of a matrix. This property was already pointed out by Rutihauser in \cite{rutishauser58} where the banded matrices were referred to as striped matrices. As we will show in the next section, shifted LR transforms is the appropriate generalization of the restart procedure to the case of non-symmetric Lanczos iteration. The process would necessarily require refining both the right as well as the left Krylov spaces simultaneously.
+One would like to extend this procedure to the case of the non-symmetric Lanczos method. However, the reduced matrix that one obtains is a non-symmetric tridiagonal matrix, with the tridiagonal structure being the result of the recurrence relations of the Lanczos algorithm \cite{saad82}. Since the QR iterations do not preserve the banded structure of non-symmetric matrices, a straightforward application of the restart procedure propounded by Sorensen will lead to a loss of this tridiagonal structure of the reduced matrix (the Hessenberg structure will still be preserved).  This loss of structure can be circumvented if one looks to the predecessor of the QR algorithm namely, the LR algorithm proposed by Rutihauser \cite{rutishauser58,rutishauser63,rutihauser91}, which has the attractive property of preserving the band structure of a matrix. This property was already pointed out by Rutihauser in \cite{rutishauser58} where the banded matrices were referred to as striped matrices. As we will show in the next section, the shifted LR transform is the appropriate generalization of the restart procedure to the case of non-symmetric Lanczos iteration. The process would necessarily require refining both the right as well as the left Krylov spaces simultaneously.
 
 The rest of the paper is organized as follows. In the next section we start with the introduction of the non-symmetric Lanczos iteration and then develop the restart procedure. We also show that the LR algorithm can be implemented as a bulge-chase method, similar to the Francis' algorithm. In section 3 we apply the restart process to the Grcar matrix, and make some concluding remarks in section 4.
 
@@ -77,12 +82,12 @@ Lanczos first introduced his algorithm in \cite{lanczos50} as a method for tridi
 which, for a Krylov space of size $m$, can be written in matrix form as 
 \begin{subequations}
 	\begin{eqnarray}
-		AV_{m} = V_{m}T_{m} + v_{m+1}e_{m}^{T} \label{eqn:lanczos_right}\\
-		A^{H}W_{m} = W_{m}T^{H}_{m} + w_{m+1}e_{m}^{T} \label{eqn:lanczos_left} \\
-		W_{m}^{H}V_{m}	= I_{m} \label{eqn:biorthogonality}
+		AV_{m} - V_{m}T_{m} &=& v_{m+1}e_{m}^{T} \label{eqn:lanczos_right}\\
+		A^{H}W_{m} - W_{m}T^{H}_{m} &=& w_{m+1}e_{m}^{T} \label{eqn:lanczos_left} \\
+		W_{m}^{H}V_{m}	&=& I_{m} \label{eqn:biorthogonality}
 	\end{eqnarray}
 \end{subequations}
-where $I_{m}$ represents the Identity matrix of size $m$, $T_{m}$ is a tri-diagonal matrix of size $m$ and, $T_{m}^{H}$ is the Hermitian conjugate of $T_{m}$. If either $v_{m+1}$ or $w_{m+1}$ vanishes it represents the convergence of the right or the left Krylov subspaces to an invariant subspace of dimension $m$. A more serious breakdown occurs if $w_{m+1}^{H}v_{m+1} = 0$ with both $v_{m+1}\ne0$ and $w_{m+1}\ne0$ however, we do not address that issue here. We refer the reader to \cite{gutknecht97} for a comprehensive overview on Lanczos type solvers and the related issues of breakdown. 
+where $I_{m}$ represents the Identity matrix of size $m$, $T_{m}$ is a tri-diagonal matrix of size $m$ and, $T_{m}^{H}$ is the Hermitian conjugate of $T_{m}$. If either $v_{m+1}$ or $w_{m+1}$ vanishes it represents the convergence of the right or the left Krylov subspaces to an invariant subspace of dimension $m$. A more serious breakdown occurs if $w_{m+1}^{H}v_{m+1} = 0$ with both $v_{m+1}\ne0$ and $w_{m+1}\ne0$. We do not address that issue here since it is not specifically related to the restart procedure. We refer the reader to \cite{gutknecht97} for a comprehensive overview on Lanczos type solvers and the related issues of breakdown. 
 
 As Sorensen points out for the Arnoldi method \cite{sorensen92}, if one is interested in an invariant subspace of dimension $m$, the starting vector of Krylov subspace  must not contain components of  the generator of a cyclic subspace of dimension greater than $m$. This applies equally for the right and left Krylov subspaces generated through the Lanczos recurrence relations. Hence a non-vanishing $v_{m+1}$ (respectively $w_{m+1}$) implies that $v_{1}$ (respectively $w_{1}$) contains components of an invariant subspace of dimension greater than $m$. The idea behind restarts then is to discard the components of the starting vector $v_{1}$ (and $w_{1}$) along the unwanted dimensions, such that each restart process moves the Krylov space(s) closer to being invariant. For the Arnoldi method Sorensen \cite{sorensen92} proposed to achieve this via polynomial filtering, \textit{i.e.} replacing
 %$v_{1} \leftarrow \psi(A)v_{1}$, where $\psi$ is a polynomial, conveniently written in the form $\psi(\lambda) = (1/\tau)\Pi_{j=1}^{p}(\lambda - \mu_{j})$ 
@@ -107,7 +112,7 @@ The node $\mu_{j}$ is referred to as a shift since the application of the polyno
 		AV'_{m} - V'_{m}T'_{m} &=& v_{m+1}e_{m}^{T}L_{1}	\label{alg:shifted_lr_right_5} .
 	\end{eqnarray}	
 \end{subequations}
-Here we have set $V'_{m} = V_{m}L_{1}$ and $T'_{m} = (R_{1}L_{1} + \mu I)$. The matrices $L_{1}, R_{1}$ are the lower and upper triangular matrices obtained from the LU decomposition of $(T_{m} - \mu I)$. The matrix $L_{1}$ can be required to be unit triangular (all entries on the main diagonal are ones), in which case the LU decomposition is unique. Furthermore, $L_{1}$ for a tridiagonal matrix only consists of one sub-diagonal (in addition to the main diagonal). One can easily recognize that the new reduced matrix $T'_{m}$ is a result of one step of the shifted LR iteration. Hence $T'_{m}$ retains the tridiagonal structure of the $T_{m}$ \cite{rutishauser58,rutihauser91}. The relationship between generating vectors of the two spaces $V_{m}$ and $V'_{m}$ can be obtained by multiplying \ref{alg:shifted_lr_right_2} by $e_{1}$, \textit{i.e.}
+Here we have set $V'_{m} = V_{m}L_{1}$ and $T'_{m} = (R_{1}L_{1} + \mu I)$. The matrices $L_{1}, R_{1}$ are the lower and upper triangular matrices obtained from the LU decomposition of $(T_{m} - \mu I)$. The matrix $L_{1}$ can be required to be unit triangular (all entries on the main diagonal are ones), in which case the LU decomposition is unique. Furthermore, $L_{1}$ for a tridiagonal matrix only consists of one sub-diagonal (in addition to the main diagonal). One can easily recognize that the new reduced matrix $T'_{m}$ is a result of one step of the shifted LR iteration. Hence $T'_{m}$ retains the tridiagonal structure of the $T_{m}$ \cite{rutishauser58,rutihauser91}. The relationship between generating vectors of the two spaces $V_{m}$ and $V'_{m}$ can be obtained by multiplying \eqref{alg:shifted_lr_right_2} by $e_{1}$, \textit{i.e.}
 \begin{eqnarray}
 		(A - \mu I) V_{m}e_{1} - (V'_{m})R_{1}e_{1} &=& v_{m+1}e_{m}^{T}e_{1} \nonumber \\
 		\implies (A - \mu I) v_{1}  &=& v'_{1}\rho_{11} \nonumber,
@@ -152,7 +157,7 @@ One may again obtain the relation between the starting vectors as
 \begin{eqnarray}
 	(A^{H} - \bar{\mu}I)w'_{1} = w''_{1}(e_{1}^{T}R_{2}e_{1}).
 \end{eqnarray}
-Obviously the appropriate transform of the right subspace to maintain orthogonality is $V''_{m} = V'_{m}L_{2}^{-H} = V_{m}L_{1}L_{2}^{-H}$. Again, noting that $L_{2}^{-H}$ is upper triangular implies that the new $v''_{1}$ is simply the scalar multiple of $v'_{1}$ and no additional filtering occurs for $v_{1}$ in this step. One can write the modified Lanczos relation as
+Obviously the appropriate transform of the right subspace to maintain orthogonality is $V''_{m} = V'_{m}L_{2}^{-H} = V_{m}L_{1}L_{2}^{-H}$. Again, note that the upper triangular $L_{2}^{-H}$ implies that the new $v''_{1}$ is simply the scalar multiple of $v'_{1}$ and no additional filtering occurs for $v_{1}$ in this step. One can write the modified Lanczos relation as
 \begin{eqnarray}
 	AV''_{m} - V''_{m}T''_{m} &=& v_{m+1}e_{m}^{T}L_{1}L_{2}^{-H} \label{alg:transform_right_1}.
 \end{eqnarray}
@@ -170,9 +175,7 @@ We may take a closer look at the structure of the residual matrices on the right
 \begin{eqnarray}
 	e_{k+p}^{T}L_{1}^{p}(L_{2}^{p})^{-H} = (\underbrace{0,0\ldots,\theta_{k+p}}_{k},\underbrace{b_{1}^{T}}_{p} ) \nonumber
 \end{eqnarray}
-where, $\theta_{k+p} = e_{k+p}^{T}(L_{1}^{p}(L_{2}^{p})^{-H})e_{k}$. Therefore matrix on the right hand side of \eqref{eqn:modified_lanczos_left_1} has zeros in the first $k-1$ columns and the $k^{th}$ column is simply $\theta_{k+p}v_{k+p+1}$. The remaining columns are non-zero in general. 
-
-A very similar structure is obtained for the residual matrix in the right hand side of \refeqn{eqn:modified_lanczos_left_1} with zeros in the first $k-1$ columns and the $k^{th}$ column being equal to $\phi_{k+p}w_{k+p+1}$, with $\phi_{k+p} = e_{k+p}^{T}((L_{1}^{p})^{-H}L_{2}^{p})e_{k}$ 
+where, $\theta_{k+p} = e_{k+p}^{T}(L_{1}^{p}(L_{2}^{p})^{-H})e_{k}$. Therefore matrix on the right hand side of \eqref{eqn:modified_lanczos_left_1} has zeros in the first $k-1$ columns and the $k^{th}$ column is simply $\theta_{k+p}v_{k+p+1}$. The remaining columns are non-zero in general. A very similar structure is obtained for the residual matrix in the right hand side of \refeqn{eqn:modified_lanczos_left_1} with zeros in the first $k-1$ columns and the $k^{th}$ column being equal to $\phi_{k+p}w_{k+p+1}$, with $\phi_{k+p} = e_{k+p}^{T}((L_{1}^{p})^{-H}L_{2}^{p})e_{k}$ 
 
 Partitioning the matrices such that
 \begin{subequations}
@@ -220,7 +223,62 @@ The new residual vectors are defined as
 		w''_{k+1}	&=&	\bar{\delta}_{k+1}W''_{p}e_{1} + \phi_{k+p}w_{k+p+1} \label{eqn:residual_new_left} 		
 	\end{eqnarray}
 \end{subequations}
+which may be normalized appropriately such that their inner product is unity. The Lanczos process may now be carried out again to generated the next $p$ vectors of the right and left Krylov spaces and the cycle may be repeated till an adequately converged subspace has been obtained. The entire process may be put together in the form of an algorithm as shown in algorithm~\ref{alg:restarted_lanczos}.
 
+\begin{algorithm}[h]
+\caption{Restarted Lanczos}
+\label{alg:restarted_lanczos}
+\textbf{Input: } $V_{k+p}, v_{k+p+1}, W_{k+p}, w_{k+p+1}, T_{k+p}$ \\
+\textbf{Input:} $\mu_{1},\mu_{2},\ldots\mu_{p}$	 \Comment{Unwanted shifts} \\
+\textbf{Output: } $V_{k}, v_{k+1}, W_{k}, w_{k+1}, T_{k}$
+%\hspace*{\algorithmicindent} \textbf{Output}
+\begin{algorithmic}[1]
+\Require{$AV_{k+p} - V_{k+p}T_{k+p} = v_{k+p+1}e_{k+p}^T$} \Comment{Right Lanczos relation}
+\Require{$A^{H}W_{k+p} - W_{k+p}T^{H}_{k+p} = w_{k+p+1}e_{k+p}^T$} \Comment{Left Lanczos relation}
+\Require{$W_{k+p}^{H}V_{k+p} = I$; $W_{k+p}^{H}v_{k+p+1} = 0$; $V_{k+p}^{H}w_{k+p+1} = 0$}; \Comment{Bi-orthogonality}
+%
+\Procedure{Refine right subspace}{}
+	 \State $L_{r} \gets I_{k+p}$
+      \For{$j \gets 1$ to $p$}
+      		\State $L,R \gets$ \textbf{LU}$(T_{k+p} - \mu_{j}I)$		\Comment{LU Decomposition}
+			\State $T_{k+p} \gets L^{-1}T_{k+p}L$	\Comment{One step of LR with shift $\mu_{j}$}
+			\State $L_{r} \gets LL_{r}$
+\EndFor
+\EndProcedure
+%
+\Procedure{Refine left subspace}{}
+\State $L_{l} \gets I_{k+p}$
+\For{$j \gets 1$ to $p$}
+\State $L,R \gets$ \textbf{LU}$(T^{H}_{k+p} - \bar{\mu}_{j}I)$		\Comment{LU Decomposition}
+\State $T^{H}_{k+p} \gets L^{-1}T^{H}_{k+p}L$	\Comment{One step of LR with shift $\bar{\mu}_{j}$}
+\State $L_{l} \gets LL_{l}$
+\EndFor
+\EndProcedure
+\State  $\beta \gets e^{T}_{k+1}T_{k+p}e_{k}$;\hspace{20pt} $\delta \gets e^{T}_{k}T_{k+p}e_{k+1}$
+\State  $\theta = e_{k+p}^{T}(L_{r}(L_{l})^{-H})e_{k}$; \hspace{20pt} $\phi = e_{k+p}^{T}(L_{r}^{-H}L_{l})e_{k}$
+%
+\State $v_{k+1}	\gets	\beta V_{k+p}e_{k+1} + \theta v_{k+p+1}$ \Comment{New right residual}
+%
+\State $w_{k+1}	\gets	\bar{\delta} W_{k+p}e_{k+1} + \phi w_{k+p+1}$ \Comment{New left residual}
+%
+\State $V_{k} \gets V_{k+p}(L_{r}L_{l}^{-H})\begin{pmatrix}
+	I_{k}\\0_{p}
+\end{pmatrix}$ \Comment{New right Krylov space}
+%
+\State $W_{k} \gets W_{k+p}(L_{r}^{-H}L_{l})\begin{pmatrix}
+	I_{k}\\0_{p}
+\end{pmatrix}$ \Comment{New left Krylov space}
+%
+\State $T_{k} \gets \begin{pmatrix}
+	I_{k} & 0_{p}
+\end{pmatrix} T_{k+p}\begin{pmatrix}
+	I_{k}\\0_{p}
+\end{pmatrix}$ 	\Comment{New tridiagonal matrix}
+\\ \Return $V_{k}, v_{k+1}, W_{k}, w_{k+1}, T_{k}$
+\end{algorithmic}
+\end{algorithm}
+
+\FloatBarrier
 
 % The outline is not required, but we show an example here.
 
