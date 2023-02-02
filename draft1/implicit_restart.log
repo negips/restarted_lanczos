@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.7.4)  1 FEB 2023 15:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.7.4)  1 FEB 2023 18:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -643,28 +643,24 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 229.
+put line 232.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[5] (./implicit_restart.bbl
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [6])
+[5] (./implicit_restart.bbl [6])
 \tf@thm=\write4
 \openout4 = `implicit_restart.thm'.
 
-
-[7] (./implicit_restart.aux)
+ [7] (./implicit_restart.aux)
 Package rerunfilecheck Info: File `implicit_restart.out' has not changed.
 (rerunfilecheck)             Checksum: 5452ABA95097C715953E511A995F84E7;349.
  ) 
 Here is how much of TeX's memory you used:
- 15554 strings out of 478994
- 234904 string characters out of 5864752
+ 15555 strings out of 478994
+ 234926 string characters out of 5864752
  641877 words of memory out of 5000000
- 31228 multiletter control sequences out of 15000+600000
+ 31229 multiletter control sequences out of 15000+600000
  410146 words of font info for 53 fonts, out of 8000000 for 9000
  2715 hyphenation exceptions out of 8191
  86i,13n,92p,1603b,492s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -680,7 +676,7 @@ cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb><
 /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/t
 ype1/public/amsfonts/cm/cmti8.pfb>
-Output written on implicit_restart.pdf (7 pages, 207303 bytes).
+Output written on implicit_restart.pdf (7 pages, 207501 bytes).
 PDF statistics:
  181 PDF objects out of 1000 (max. 8388607)
  156 compressed objects within 2 object streams

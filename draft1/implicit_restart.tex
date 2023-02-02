@@ -223,8 +223,11 @@ The new residual vectors are defined as
 		w''_{k+1}	&=&	\bar{\delta}_{k+1}W''_{p}e_{1} + \phi_{k+p}w_{k+p+1} \label{eqn:residual_new_left} 		
 	\end{eqnarray}
 \end{subequations}
-which may be normalized appropriately such that their inner product is unity. The Lanczos process may now be carried out again to generated the next $p$ vectors of the right and left Krylov spaces and the cycle may be repeated till an adequately converged subspace has been obtained. The entire process may be put together in the form of an algorithm as shown in algorithm~\ref{alg:restarted_lanczos}.
+which may be normalized appropriately such that their inner product is unity. 
+The Lanczos process may now be carried out again to generate the next $p$ vectors of the right and left Krylov spaces and the cycle may be repeated till an adequately converged subspace has been obtained. The entire process may be put together in the form of an algorithm as shown in algorithm~\ref{alg:restarted_lanczos}.
 
+%% Algorithm
+%%%%%%%%%%%%%%%%%%%%%%
 \begin{algorithm}[h]
 \caption{Restarted Lanczos}
 \label{alg:restarted_lanczos}
@@ -254,6 +257,8 @@ which may be normalized appropriately such that their inner product is unity. Th
 \State $L_{l} \gets LL_{l}$
 \EndFor
 \EndProcedure
+%
+\Procedure{Update}{}
 \State  $\beta \gets e^{T}_{k+1}T_{k+p}e_{k}$;\hspace{20pt} $\delta \gets e^{T}_{k}T_{k+p}e_{k+1}$
 \State  $\theta = e_{k+p}^{T}(L_{r}(L_{l})^{-H})e_{k}$; \hspace{20pt} $\phi = e_{k+p}^{T}(L_{r}^{-H}L_{l})e_{k}$
 %
@@ -274,11 +279,14 @@ which may be normalized appropriately such that their inner product is unity. Th
 \end{pmatrix} T_{k+p}\begin{pmatrix}
 	I_{k}\\0_{p}
 \end{pmatrix}$ 	\Comment{New tridiagonal matrix}
-\\ \Return $V_{k}, v_{k+1}, W_{k}, w_{k+1}, T_{k}$
+\EndProcedure \\
+\Return $V_{k}, v_{k+1}, W_{k}, w_{k+1}, T_{k}$
 \end{algorithmic}
 \end{algorithm}
-
+%%%%%%%%%%%%%%%%%%%%%%
 \FloatBarrier
+
+
 
 % The outline is not required, but we show an example here.
 
