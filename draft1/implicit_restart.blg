@@ -4,45 +4,45 @@ The top-level auxiliary file: implicit_restart.aux
 The style file: siamplain.bst
 Database file #1: references.bib
 Warning--empty journal in lanczos50
-You've used 9 entries,
+You've used 13 entries,
             2244 wiz_defined-function locations,
-            602 strings with 5395 characters,
-and the built_in function-call counts, 3011 in all, are:
-= -- 272
-> -- 80
+            634 strings with 6116 characters,
+and the built_in function-call counts, 4741 in all, are:
+= -- 439
+> -- 135
 < -- 0
-+ -- 36
-- -- 24
-* -- 202
-:= -- 421
-add.period$ -- 9
-call.type$ -- 9
-change.case$ -- 37
++ -- 58
+- -- 42
+* -- 324
+:= -- 650
+add.period$ -- 13
+call.type$ -- 13
+change.case$ -- 58
 chr.to.int$ -- 0
-cite$ -- 10
-duplicate$ -- 181
-empty$ -- 299
-format.name$ -- 24
-if$ -- 670
+cite$ -- 14
+duplicate$ -- 283
+empty$ -- 448
+format.name$ -- 42
+if$ -- 1076
 int.to.chr$ -- 0
-int.to.str$ -- 9
-missing$ -- 11
-newline$ -- 30
-num.names$ -- 18
-pop$ -- 70
+int.to.str$ -- 13
+missing$ -- 15
+newline$ -- 42
+num.names$ -- 26
+pop$ -- 96
 preamble$ -- 1
-purify$ -- 30
+purify$ -- 47
 quote$ -- 0
-skip$ -- 124
+skip$ -- 214
 stack$ -- 0
-substring$ -- 224
-swap$ -- 62
+substring$ -- 346
+swap$ -- 112
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 32
+type$ -- 48
 warning$ -- 1
-while$ -- 36
-width$ -- 10
-write$ -- 79
+while$ -- 51
+width$ -- 15
+write$ -- 119
 (There was 1 warning)

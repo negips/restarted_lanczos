@@ -11,8 +11,8 @@
 % Optional PDF information
 \ifpdf
 \hypersetup{
-  pdftitle={An Example Article},
-  pdfauthor={D. Doe, P. T. Frank, and J. E. Smith}
+  pdftitle={Implicitly restarted Lanczos},
+  pdfauthor={P.S. Negi and C. Arratia}
 }
 \fi
 
@@ -51,12 +51,12 @@
 
 % REQUIRED
 \begin{abstract}
-The shifted QR iteration is used as a restart procedure for the Arnoldi method for the calculation of a few dominant eigenvalues of a large matrix. We show that the underlying idea can be utilized in much the same manner via the shifted LR iteration to create a restart procedure for the non-symmetric Lanczos algorithm for eigenvalue calcuations. Additionally, we show that the (shifted) LR iteration can be performed implicitly in a manner similar to the Francis' algorithm, resulting in a bulge-chase type procedure which does not require the explicit construction of the full lower and upper triangular matrices. 
+The implicitly shifted QR iteration is used as a restart procedure for the Arnoldi method for the calculation of a few dominant eigenvalues of a large matrix. We show that the underlying idea can be utilized in much the same manner via the implicitly shifted LR iteration to create a restart procedure for the non-symmetric Lanczos algorithm for eigenvalue computations.
 \end{abstract}
 
 % REQUIRED
 \begin{keywords}
-LR algorithm, unsymmetric Lanczos, implicit restart
+LR algorithm, non-symmetric Lanczos, implicit restart
 \end{keywords}
 
 % REQUIRED
@@ -67,7 +67,7 @@ LR algorithm, unsymmetric Lanczos, implicit restart
 \section{Introduction}
 The Arnoldi iteration \cite{arnoldi51} is a popular Krylov space method for calculating a few eigenvalues of a large matrix. The method relies on the generation of a sequence of Krylov vectors which determine the subspace within which approximations of the eigenvalue-eigenvector pairs are obtained. Depending on the accuracy and number of eigenpair approximations needed, the Krylov space size can become exceedingly large so that  the quality of the results may be limited by the available memory. Sorensen \cite{sorensen92} introduced an elegant procedure for restarting the Arnoldi factorization based on polynomial filters, which are applied through the implicitly shifted QR iterations on the reduced Hessenberg matrix obtained through the Arnoldi method. In particular, the use of exact shifts was shown to be successful in the convergence process of the eigenspace\cite{sorensen92} of the specified eigenvalues. The method has subsequently found widespread application through the ARPACK library \cite{arpack98}. The use of QR iterations ensures that the reduced matrix preserves its Hessenberg structure through the transforms that make up the restart process. If the underlying matrix is symmetric, the Arnoldi iteration reduces to the Lanczos algorithm and, the Hessenberg matrix reduces to a symmetric tridiagonal matrix. The QR iteration preserves the symmetric tridiagonal structure as well and, as pointed out by Sorensen \cite{sorensen92}, the implicit restart process applies equally well for the Lanczos method for symmetric matrices. 
 
-One would like to extend this procedure to the case of the non-symmetric Lanczos method. However, the reduced matrix that one obtains is a non-symmetric tridiagonal matrix, with the tridiagonal structure being the result of the recurrence relations of the Lanczos algorithm \cite{saad82}. Since the QR iterations do not preserve the banded structure of non-symmetric matrices, a straightforward application of the restart procedure propounded by Sorensen will lead to a loss of this tridiagonal structure of the reduced matrix (the Hessenberg structure will still be preserved).  This loss of structure can be circumvented if one looks to the predecessor of the QR algorithm namely, the LR algorithm proposed by Rutihauser \cite{rutishauser58,rutishauser63,rutihauser91}, which has the attractive property of preserving the band structure of a matrix. This property was already pointed out by Rutihauser in \cite{rutishauser58} where the banded matrices were referred to as striped matrices. As we will show in the next section, the shifted LR transform is the appropriate generalization of the restart procedure to the case of non-symmetric Lanczos iteration. The process would necessarily require refining both the right as well as the left Krylov spaces simultaneously.
+One would like to extend this procedure to the case of the non-symmetric Lanczos method. However, the reduced matrix that one obtains is a non-symmetric tridiagonal matrix, with the tridiagonal structure being the result of the recurrence relations of the Lanczos algorithm \cite{saad82}. Since the QR iterations do not preserve the banded structure of non-symmetric matrices, a straightforward application of the restart procedure propounded by Sorensen will lead to a loss of this tridiagonal structure of the reduced matrix (the Hessenberg structure will still be preserved).  This loss of structure can be circumvented if one looks to the predecessor of the QR algorithm namely, the LR algorithm proposed by Rutihauser \cite{rutishauser58,rutishauser63,rutihauser91}, which has the attractive property of preserving the band structure of a matrix. This property was already pointed out by Rutihauser in \cite{rutishauser58} where the banded matrices were referred to as striped matrices. As we will show in the next section, the shifted LR transform is the appropriate analogue of the restart procedure to the case of non-symmetric Lanczos iteration. The process would necessarily require refining both the right as well as the left Krylov spaces simultaneously.
 
 The rest of the paper is organized as follows. In the next section we start with the introduction of the non-symmetric Lanczos iteration and then develop the restart procedure. We also show that the LR algorithm can be implemented as a bulge-chase method, similar to the Francis' algorithm. In section 3 we apply the restart process to the Grcar matrix, and make some concluding remarks in section 4.
 
@@ -87,9 +87,9 @@ which, for a Krylov space of size $m$, can be written in matrix form as
 		W_{m}^{H}V_{m}	&=& I_{m} \label{eqn:biorthogonality}
 	\end{eqnarray}
 \end{subequations}
-where $I_{m}$ represents the Identity matrix of size $m$, $T_{m}$ is a tri-diagonal matrix of size $m$ and, $T_{m}^{H}$ is the Hermitian conjugate of $T_{m}$. If either $v_{m+1}$ or $w_{m+1}$ vanishes it represents the convergence of the right or the left Krylov subspaces to an invariant subspace of dimension $m$. A more serious breakdown occurs if $w_{m+1}^{H}v_{m+1} = 0$ with both $v_{m+1}\ne0$ and $w_{m+1}\ne0$. We do not address that issue here since it is not specifically related to the restart procedure. We refer the reader to \cite{gutknecht97} for a comprehensive overview on Lanczos type solvers and the related issues of breakdown. 
+where $I_{m}$ represents the Identity matrix of size $m$, $T_{m}$ is a tri-diagonal matrix of size $m$ with $T_{m}^{H}$ it's Hermitian conjugate, and $e_{m}$ is the standard unit vector. If either $v_{m+1}$ or $w_{m+1}$ vanishes it represents the convergence of the right or the left Krylov subspaces to an invariant subspace of dimension $m$. A more serious breakdown occurs if $w_{m+1}^{H}v_{m+1} = 0$ with both $v_{m+1}\ne0$ and $w_{m+1}\ne0$, in which case a look-ahead strategy may be employed. We do not address the issues with breakdown here since it is not specifically related to the restart procedure. We refer the reader to \cite{gutknecht97} for a comprehensive overview on Lanczos type solvers and the related issues of breakdown. 
 
-As Sorensen points out for the Arnoldi method \cite{sorensen92}, if one is interested in an invariant subspace of dimension $m$, the starting vector of Krylov subspace  must not contain components of  the generator of a cyclic subspace of dimension greater than $m$. This applies equally for the right and left Krylov subspaces generated through the Lanczos recurrence relations. Hence a non-vanishing $v_{m+1}$ (respectively $w_{m+1}$) implies that $v_{1}$ (respectively $w_{1}$) contains components of an invariant subspace of dimension greater than $m$. The idea behind restarts then is to discard the components of the starting vector $v_{1}$ (and $w_{1}$) along the unwanted dimensions, such that each restart process moves the Krylov space(s) closer to being invariant. For the Arnoldi method Sorensen \cite{sorensen92} proposed to achieve this via polynomial filtering, \textit{i.e.} replacing
+As Sorensen points out for the Arnoldi method \cite{sorensen92}, if one is interested in an invariant subspace of dimension $m$, the starting vector of the Krylov subspace  must not contain components of  the generator of a cyclic subspace of dimension greater than $m$. This applies equally for the right and left Krylov subspaces generated through the Lanczos recurrence relations. Hence a non-vanishing $v_{m+1}$ (respectively $w_{m+1}$) implies that $v_{1}$ (respectively $w_{1}$) contains components of an invariant subspace of dimension greater than $m$. The idea behind restarts then is to discard the components of the starting vector $v_{1}$ (and $w_{1}$) along the unwanted dimensions, such that each restart process moves the Krylov space(s) closer to being invariant. For the Arnoldi method Sorensen \cite{sorensen92} proposed to achieve this via polynomial filtering, \textit{i.e.} replacing
 %$v_{1} \leftarrow \psi(A)v_{1}$, where $\psi$ is a polynomial, conveniently written in the form $\psi(\lambda) = (1/\tau)\Pi_{j=1}^{p}(\lambda - \mu_{j})$ 
 \begin{subequations}
 	\begin{eqnarray}
@@ -224,12 +224,14 @@ The new residual vectors are defined as
 	\end{eqnarray}
 \end{subequations}
 which may be normalized appropriately such that their inner product is unity. 
-The Lanczos process may now be carried out again to generate the next $p$ vectors of the right and left Krylov spaces and the cycle may be repeated till an adequately converged subspace has been obtained. The entire process may be put together in the form of an algorithm as shown in algorithm~\ref{alg:restarted_lanczos}.
+The Lanczos process may now be carried out again to generate the next $p$ vectors of the right and left Krylov spaces and the cycle may be repeated till an adequately converged subspace has been obtained. In the case that exact shifts (eigenvalues of $T_{m}$) are used for the restart procedure $\beta_{k+1}$ and $\delta_{k+1}$ are both zero in exact arithmetic.  
+
+As a final note, we mention that Della-Dora \cite{delladora75} introduced a class of algorithms of the GR type of which, LR and QR are special cases. Watkins then introduced generic bulge-chasing algorithms for the entire GR class of methods\cite{watkins91}. The shifted LR algorithm used in the restart procedure outlined above can therefore be carried out in an implicit manner through the bulge-chase sequence of Watkins \cite{watkins91}. For real matrices, the operations can be confined in the real space by using the double-shift strategy introduced by Francis \cite{francis62}. The entire restart process is put together in algorithm~\ref{alg:restarted_lanczos}.
 
 %% Algorithm
 %%%%%%%%%%%%%%%%%%%%%%
 \begin{algorithm}[h]
-\caption{Restarted Lanczos}
+\caption{Restarted nonsymmetric Lanczos}
 \label{alg:restarted_lanczos}
 \textbf{Input: } $V_{k+p}, v_{k+p+1}, W_{k+p}, w_{k+p+1}, T_{k+p}$ \\
 \textbf{Input:} $\mu_{1},\mu_{2},\ldots\mu_{p}$	 \Comment{Unwanted shifts} \\
@@ -243,8 +245,7 @@ The Lanczos process may now be carried out again to generate the next $p$ vector
 \Procedure{Refine right subspace}{}
 	 \State $L_{r} \gets I_{k+p}$
       \For{$j \gets 1$ to $p$}
-      		\State $L,R \gets$ \textbf{LU}$(T_{k+p} - \mu_{j}I)$		\Comment{LU Decomposition}
-			\State $T_{k+p} \gets L^{-1}T_{k+p}L$	\Comment{One step of LR with shift $\mu_{j}$}
+			\State $T_{k+p} \gets L^{-1}T_{k+p}L$	\Comment{Implicitly shifted LR with shift $\mu_{j}$}
 			\State $L_{r} \gets LL_{r}$
 \EndFor
 \EndProcedure
@@ -252,8 +253,7 @@ The Lanczos process may now be carried out again to generate the next $p$ vector
 \Procedure{Refine left subspace}{}
 \State $L_{l} \gets I_{k+p}$
 \For{$j \gets 1$ to $p$}
-\State $L,R \gets$ \textbf{LU}$(T^{H}_{k+p} - \bar{\mu}_{j}I)$		\Comment{LU Decomposition}
-\State $T^{H}_{k+p} \gets L^{-1}T^{H}_{k+p}L$	\Comment{One step of LR with shift $\bar{\mu}_{j}$}
+\State $T^{H}_{k+p} \gets L^{-1}T^{H}_{k+p}L$	\Comment{Implicitly shifted LR with shift $\bar{\mu}_{j}$}
 \State $L_{l} \gets LL_{l}$
 \EndFor
 \EndProcedure
@@ -286,162 +286,34 @@ The Lanczos process may now be carried out again to generate the next $p$ vector
 %%%%%%%%%%%%%%%%%%%%%%
 \FloatBarrier
 
+\section{Computational Results}
+We present the results of computational tests performed in the Grcar matrix which is highly non-normal and has presented problems with convergence in previous studies. In his implicit restart work Sorensen \cite{sorensen92} indeed points out that the restarted Arnoldi has trouble converging to the left-most part of the spectrum and even though the algorithm claimed convergence, what was obtained were in fact part of the pseudospectrum. 
 
+We present the results of the restarted Lanczos method applied to the $50\times50$ Grcar matrix for $k=10$ and $p=10$.  Figure~\ref{fig:grcar_eigs} shows the spectrum obtained after performing eight restarts of the Lanczos algorithm. The restarts were performed such that the $k$ eigenvalues with the largest imaginary part were retained for the reduced operator and the remaining were used as shifts to be discarded from the subspace. The same part of the spectrum was sought by Sorensen in \cite{sorensen92}. In this particular case we obtained $w_{m+1}^{T}v_{m+1} \sim O(10^{-11})$ even though the individual residuals were both of order $10^{-3}-10^{-4}$. At this particular moment, one would need to employ a look-ahead step of the Lanczos however, we have shown the spectrum of the reduced matrix at this point. One may think of the spectrum to have converged to $O(10^{-4})$. As seen from the figure, the spectrum of the reduced operator matches quite well with the original spectrum of the Grcar matrix. In figure~\ref{fig:eig_error}, we show the convergence history of the individual eigenvalues with each restart step as the Lanczos algorithm progresses. Clearly the restart process is working well to shift the Krylov spaces towards the wanted region of the spectrum. The error in the eigenvalues is of $O(10^{-7})$ even though the perturbation to the reduced matrix is of order $10^{-4}$.  This is contrast to the results obtained in \cite{sorensen92} which reported large perturbations to the eigenvalues even when the Arnoldi method reported convergence. We suspect this is due to the fact that the non-symmetric Lanczos approximates both the right and left eigenspaces simultaneously and leads to a lower error in the truncated matrix. We expect this to be particularly useful in hydrodynamic problems where highly non-normal matrices are a routine occurrence and where problems with convergence of the spectrum have often been reported (see \cite{rahkola17} for example).
+\begin{figure}[]
+	\centering
+	\includegraphics[width=0.75\textwidth]{grcar_eigs}
+	\caption{Spectrum obtained from the restarted Lanczos after $11$ restart steps.}
+	\label{fig:grcar_eigs}
+	%
+	\includegraphics[width=0.75\textwidth]{eigen_error}
+	\caption{Error in the eigenvalues after each restart.}
+	\label{fig:eig_error}
+	%
+\end{figure}
 
-% The outline is not required, but we show an example here.
+At this point we make a note of caution that for large Grcar matrices our attempts have been somewhat less successful and the convergence sometimes fails. We expect this is due to the naive implementations of the implicit LR method that we have done in Julia where, the standard checks for small sub-diagonal elements have not been performed. In our investigations of such cases we indeed do find small sub diagonal elements which lead to loss of precision. Very small sub diagonal elements also lead to rapid loss of biorthogonality of the two subspaces. Similarly we have not paid attention to the issue arising out of the Lanczos algorithm itself, except for employing a double (two-sided) Gram-Schmidt to ensure biorthogonality. We also note that for large number of restarts, the biorthogonality property of the two subspaces is progressively lost, probably due to accruing floating point errors. Hence we expect some method of reorthogonalization would be required to ensure stability for very long calculations which, has not been done in the current work. Finally we note that the (implicit) LR decomposition is not unique. Uniqueness is ensured for unit main diagonal of the lower triangular matrix however, this does not pay any heed to conditioning of the matrix. A better strategy of building the matrices could be pursued which has better conditioning while at the same time preserves the tridiagonal structure. These issues would require careful implementation of all the individual components and we do not address those in the current work. 
 
-%\section{Main results}
-%\label{sec:main}
-%
-%We interleave text filler with some example theorems and theorem-like
-%items.
-%
-%Here we state our main result as \cref{thm:bigthm}; the proof is
-%deferred to \cref{sec:proof}.
-%
-%\begin{theorem}[$LDL^T$ Factorization \cite{GoVa13}]\label{thm:bigthm}
-%  If $A \in \mathbb{R}^{n \times n}$ is symmetric and the principal
-%  submatrix $A(1:k,1:k)$ is nonsingular for $k=1:n-1$, then there
-%  exists a unit lower triangular matrix $L$ and a diagonal matrix
-%  \begin{displaymath}
-%    D = \diag(d_1,\dots,d_n)
-%  \end{displaymath}
-%  such that $A=LDL^T$. The factorization is unique.
-%\end{theorem}
-%
-%\begin{theorem}[Mean Value Theorem]\label{thm:mvt}
-%  Suppose $f$ is a function that is continuous on the closed interval
-%  $[a,b]$.  and differentiable on the open interval $(a,b)$.
-%  Then there exists a number $c$ such that $a < c < b$ and
-%  \begin{displaymath}
-%    f'(c) = \frac{f(b)-f(a)}{b-a}.
-%  \end{displaymath}
-%  In other words,
-%  \begin{displaymath}
-%    f(b)-f(a) = f'(c)(b-a).
-%  \end{displaymath}
-%\end{theorem}
-%
-%Observe that \cref{thm:bigthm,thm:mvt,cor:a} correctly mix references
-%to multiple labels.
-%
-%\begin{corollary}\label{cor:a}
-%  Let $f(x)$ be continuous and differentiable everywhere. If $f(x)$
-%  has at least two roots, then $f'(x)$ must have at least one root.
-%\end{corollary}
-%\begin{proof}
-%  Let $a$ and $b$ be two distinct roots of $f$.
-%  By \cref{thm:mvt}, there exists a number $c$ such that
-%  \begin{displaymath}
-%    f'(c) = \frac{f(b)-f(a)}{b-a} = \frac{0-0}{b-a} = 0.
-%  \end{displaymath}
-%\end{proof}
-%
-%Note that it may require two \LaTeX\ compilations for the proof marks
-%to show.
-%
-%Display matrices can be rendered using environments from \texttt{amsmath}:
-%\begin{equation}\label{eq:matrices}
-%S=\begin{bmatrix}1&0\\0&0\end{bmatrix}
-%\quad\text{and}\quad
-%C=\begin{pmatrix}1&1&0\\1&1&0\\0&0&0\end{pmatrix}.
-%\end{equation}
-%Equation \cref{eq:matrices} shows some example matrices.
-%
-%We calculate the Fr\'{e}chet derivative of $F$ as follows:
-%\begin{subequations}
-%\begin{align}
-%  F'(U,V)(H,K) 
-%  &= \langle R(U,V),H\Sigma V^{T} + U\Sigma K^{T} -
-%  P(H\Sigma V^{T} + U\Sigma K^{T})\rangle \label{eq:aa} \\
-%  &= \langle R(U,V),H\Sigma V^{T} + U\Sigma K^{T}\rangle 
-%  \nonumber \\
-%  &= \langle R(U,V)V\Sigma^{T},H\rangle + 
-%  \langle \Sigma^{T}U^{T}R(U,V),K^{T}\rangle. \label{eq:bb}
-%\end{align}
-%\end{subequations}
-%\Cref{eq:aa} is the first line, and \cref{eq:bb} is the last line.
-%
-%\section{Algorithm}
-%\label{sec:alg}
-%
-%\lipsum[40]
-%
-%Our analysis leads to the algorithm in \cref{alg:buildtree}.
-%
-%\begin{algorithm}
-%\caption{Build tree}
-%\label{alg:buildtree}
-%\begin{algorithmic}
-%\STATE{Define $P:=T:=\{ \{1\},\ldots,\{d\}$\}}
-%\WHILE{$\#P > 1$}
-%\STATE{Choose $C^\prime\in\mathcal{C}_p(P)$ with $C^\prime := \operatorname{argmin}_{C\in\mathcal{C}_p(P)} \varrho(C)$}
-%\STATE{Find an optimal partition tree $T_{C^\prime}$ }
-%\STATE{Update $P := (P{\setminus} C^\prime) \cup \{ \bigcup_{t\in C^\prime} t \}$}
-%\STATE{Update $T := T \cup \{ \bigcup_{t\in\tau} t : \tau\in T_{C^\prime}{\setminus} \mathcal{L}(T_{C^\prime})\}$}
-%\ENDWHILE
-%\RETURN $T$
-%\end{algorithmic}
-%\end{algorithm}
-%
-%\lipsum[41]
-%
-%\section{Experimental results}
-%\label{sec:experiments}
-%
-%\lipsum[50]
-%
-%\Cref{fig:testfig} shows some example results. Additional results are
-%available in the supplement in \cref{tab:foo}.
-%
-%\begin{figure}[htbp]
-%  \centering
-%  \label{fig:a}\includegraphics{lexample_fig1}
-%  \caption{Example figure using external image files.}
-%  \label{fig:testfig}
-%\end{figure}
-%
-%\Cref{tab:foo} shows additional
-%supporting evidence. 
-%
-%\begin{table}[htbp]
-%\footnotesize
-%\caption{Example table.}\label{tab:foo}
-%\begin{center}
-%  \begin{tabular}{|c|c|c|} \hline
-%   Species & \bf Mean & \bf Std.~Dev. \\ \hline
-%    1 & 3.4 & 1.2 \\
-%    2 & 5.4 & 0.6 \\ 
-%    3 & 7.4 & 2.4 \\ 
-%    4 & 9.4 & 1.8 \\ \hline
-%  \end{tabular}
-%\end{center}
-%\end{table}
-%
-%\lipsum[51]
-%
-%\section{Discussion of \texorpdfstring{{\boldmath$Z=X \cup Y$}}{Z = X union Y}}
-%
-%\lipsum[76]
-%
-%\section{Conclusions}
-%\label{sec:conclusions}
-%
-%Some conclusions here.
-%
-%
-%\appendix
-%\section{An example appendix} 
-%\lipsum[71]
-%
-%\begin{lemma}
-%Test Lemma.
-%\end{lemma}
+\section{Conclusion}
+We present an algorithm to restart the non-symmetric Lanczos method which is based on the idea of polynomial filtering via the implicit QR method proposed by Sorensen \cite{sorensen92} for restarting the Arnoldi iteration.  It is shown that the (implicitly) shifted LR method is the appropriate analogue for restarting the non-symmetric Lanczos algorithm which preserves the tridiagonal structure of the reduced matrix. It is shown that the polynomial filtering process needs to be carried out for both the right and the left Krylov spaces and the appropriate transforms for maintaining biorthogonality of the two spaces are highlighted. Computational results are shown for a Grcar matrix which is known to be highly non-normal and the spectrum is found to converge adequately even when the residual error is relatively large. 
+
+As a final note, we point out that the Arnoldi method was inspired by the Lanczos algorithm and, the QR method which is used for restarting the Arnoldi method was inspired by the LR method which, we now use to restart the non-symmetric Lanczos method. We find this symmetry aesthetically pleasing. 
 
 
 \section*{Acknowledgments}
-We would like to acknowledge the assistance of volunteers in putting
-together this example manuscript and supplement.
+Mention someone funding here.
+
+\FloatBarrier
 
 \bibliographystyle{siamplain}
 \bibliography{references}
