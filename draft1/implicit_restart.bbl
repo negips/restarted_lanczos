@@ -35,6 +35,11 @@
   solution of large-scale eigenvalue problems with implicitly restarted Arnoldi
   methods}, SIAM, 1998.
 
+\bibitem{parlett85}
+{\sc B.~N. Parlett, D.~R. Taylor, and Z.~A. Liu}, {\em A look-ahead lanczos
+  algorithm for unsymmetric matrices}, Mathematics of Computation, 44 (1985),
+  pp.~105--124, \url{https://doi.org/10.2307/2007796}.
+
 \bibitem{rutihauser91}
 {\sc H.~Rutihauser}, {\em Lectures on Numerical Mathematics}, Birkhauser, 1990.
 

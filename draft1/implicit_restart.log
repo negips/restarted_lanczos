@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.7.4)  3 FEB 2023 22:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.7.4)  5 FEB 2023 16:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -643,7 +643,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 234.
+put line 226.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -657,13 +657,13 @@ Package epstopdf Info: Source file: <grcar_eigs.eps>
 (epstopdf)                    size: 20531 bytes
 (epstopdf)             Command: <repstopdf --outfile=grcar_eigs-eps-converted-t
 o.pdf grcar_eigs.eps>
-(epstopdf)             \includegraphics on input line 295.
+(epstopdf)             \includegraphics on input line 288.
 Package epstopdf Info: Output file is already uptodate.
-<grcar_eigs-eps-converted-to.pdf, id=133, 578.16pt x 578.16pt>
+<grcar_eigs-eps-converted-to.pdf, id=140, 578.16pt x 578.16pt>
 File: grcar_eigs-eps-converted-to.pdf Graphic file (type pdf)
 <use grcar_eigs-eps-converted-to.pdf>
-Package pdftex.def Info: grcar_eigs-eps-converted-to.pdf  used on input line 29
-5.
+Package pdftex.def Info: grcar_eigs-eps-converted-to.pdf  used on input line 28
+8.
 (pdftex.def)             Requested size: 277.7878pt x 277.78712pt.
 Package epstopdf Info: Source file: <eigen_error.eps>
 (epstopdf)                    date: 2023-02-03 21:56:24
@@ -673,17 +673,17 @@ Package epstopdf Info: Source file: <eigen_error.eps>
 (epstopdf)                    size: 8202 bytes
 (epstopdf)             Command: <repstopdf --outfile=eigen_error-eps-converted-
 to.pdf eigen_error.eps>
-(epstopdf)             \includegraphics on input line 299.
+(epstopdf)             \includegraphics on input line 292.
 Package epstopdf Info: Output file is already uptodate.
-<eigen_error-eps-converted-to.pdf, id=134, 578.16pt x 578.16pt>
+<eigen_error-eps-converted-to.pdf, id=141, 578.16pt x 578.16pt>
 File: eigen_error-eps-converted-to.pdf Graphic file (type pdf)
 <use eigen_error-eps-converted-to.pdf>
 Package pdftex.def Info: eigen_error-eps-converted-to.pdf  used on input line 2
-99.
+92.
 (pdftex.def)             Requested size: 277.7878pt x 277.78712pt.
 
 
-LaTeX Warning: Float too large for page by 0.68536pt on input line 303.
+LaTeX Warning: Float too large for page by 0.68536pt on input line 296.
 
 [6]
 Underfull \vbox (badness 2626) has occurred while \output is active []
@@ -699,13 +699,13 @@ Package rerunfilecheck Info: File `implicit_restart.out' has not changed.
 (rerunfilecheck)             Checksum: 29BA782111D1C7418D38DF3EC1888AA3;595.
  ) 
 Here is how much of TeX's memory you used:
- 15591 strings out of 478994
- 235609 string characters out of 5864752
- 640224 words of memory out of 5000000
- 31252 multiletter control sequences out of 15000+600000
+ 15599 strings out of 478994
+ 235787 string characters out of 5864752
+ 644470 words of memory out of 5000000
+ 31259 multiletter control sequences out of 15000+600000
  410146 words of font info for 53 fonts, out of 8000000 for 9000
  2715 hyphenation exceptions out of 8191
- 86i,13n,92p,2029b,421s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 86i,13n,92p,2110b,415s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/
 texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/share/texmf-dist/font
 s/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-dist/fonts/type1/publi
@@ -718,10 +718,10 @@ cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb><
 /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/t
 ype1/public/amsfonts/cm/cmti8.pfb>
-Output written on implicit_restart.pdf (9 pages, 242887 bytes).
+Output written on implicit_restart.pdf (9 pages, 245598 bytes).
 PDF statistics:
- 282 PDF objects out of 1000 (max. 8388607)
- 210 compressed objects within 3 object streams
- 57 named destinations out of 1000 (max. 500000)
+ 292 PDF objects out of 1000 (max. 8388607)
+ 220 compressed objects within 3 object streams
+ 58 named destinations out of 1000 (max. 500000)
  51 words of extra memory for PDF output out of 10000 (max. 10000000)
 
