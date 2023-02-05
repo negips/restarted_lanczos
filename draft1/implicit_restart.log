@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.7.4)  5 FEB 2023 17:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.7.4)  5 FEB 2023 17:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -643,7 +643,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 226.
+put line 224.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -657,13 +657,13 @@ Package epstopdf Info: Source file: <grcar_eigs.eps>
 (epstopdf)                    size: 20531 bytes
 (epstopdf)             Command: <repstopdf --outfile=grcar_eigs-eps-converted-t
 o.pdf grcar_eigs.eps>
-(epstopdf)             \includegraphics on input line 288.
+(epstopdf)             \includegraphics on input line 286.
 Package epstopdf Info: Output file is already uptodate.
 <grcar_eigs-eps-converted-to.pdf, id=140, 578.16pt x 578.16pt>
 File: grcar_eigs-eps-converted-to.pdf Graphic file (type pdf)
 <use grcar_eigs-eps-converted-to.pdf>
 Package pdftex.def Info: grcar_eigs-eps-converted-to.pdf  used on input line 28
-8.
+6.
 (pdftex.def)             Requested size: 277.7878pt x 277.78712pt.
 Package epstopdf Info: Source file: <eigen_error.eps>
 (epstopdf)                    date: 2023-02-03 21:56:24
@@ -673,17 +673,17 @@ Package epstopdf Info: Source file: <eigen_error.eps>
 (epstopdf)                    size: 8202 bytes
 (epstopdf)             Command: <repstopdf --outfile=eigen_error-eps-converted-
 to.pdf eigen_error.eps>
-(epstopdf)             \includegraphics on input line 292.
+(epstopdf)             \includegraphics on input line 290.
 Package epstopdf Info: Output file is already uptodate.
 <eigen_error-eps-converted-to.pdf, id=141, 578.16pt x 578.16pt>
 File: eigen_error-eps-converted-to.pdf Graphic file (type pdf)
 <use eigen_error-eps-converted-to.pdf>
 Package pdftex.def Info: eigen_error-eps-converted-to.pdf  used on input line 2
-92.
+90.
 (pdftex.def)             Requested size: 277.7878pt x 277.78712pt.
 
 
-LaTeX Warning: Float too large for page by 0.68536pt on input line 296.
+LaTeX Warning: Float too large for page by 0.68536pt on input line 294.
 
 [6]
 Underfull \vbox (badness 2626) has occurred while \output is active []
@@ -718,7 +718,7 @@ cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb><
 /usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texmf-dist/fonts/t
 ype1/public/amsfonts/cm/cmti8.pfb>
-Output written on implicit_restart.pdf (9 pages, 245590 bytes).
+Output written on implicit_restart.pdf (9 pages, 245592 bytes).
 PDF statistics:
  292 PDF objects out of 1000 (max. 8388607)
  220 compressed objects within 3 object streams
